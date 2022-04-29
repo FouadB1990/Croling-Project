@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -80,7 +81,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'name_ar' => $data['name_ar'],
             'nationality' => $data['nationality'],
@@ -101,5 +102,25 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+            if (request()->hasFile('image')) {
+
+                request()->validate([
+                    'image' => 'mimes:jpeg,bmp,png' // Only allow .jpg, .bmp and .png file types.
+                ]);
+
+                // Save the file locally in the storage/public/ folder under a new folder named /image
+                // $request->file->store('image','public');
+                $image = request()->file('image');
+                $file = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/images');
+                $image->move($destinationPath,$file);
+                
+                $user->update(['image'=>$file]);
+
+         
+    
+        return $user;
+    }
     }
 }

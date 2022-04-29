@@ -50,6 +50,9 @@
                 <div class="col-sm-6">
                     <ul class="list-group">
                         <li class="list-group-item active" style="font-size: 1.4em;">Personal Info</li>
+                        <img class="card-img-top" src="{{asset('/images')}}/{{$sailorinfo->image}}" alt="Card image cap">
+
+                        <!-- <li class="list-group-item" style="font-size: 1.2em;">Arabic Name: <span style="word-break: break-all;">{{$sailorinfo->image}}</span></li> -->
                         <li class="list-group-item" style="font-size: 1.2em;">Arabic Name: <span style="word-break: break-all;">{{$sailorinfo->name_ar}}</span></li>
                         <li class="list-group-item" style="font-size: 1.2em;">Nationality: <span style="word-break: break-all;">{{$sailorinfo->nationality}}</span></li>
                         <li class="list-group-item" style="font-size: 1.2em;">Date Of Birth: <span style="word-break: break-all;">{{$sailorinfo->date_of_birth}}</span></li>
