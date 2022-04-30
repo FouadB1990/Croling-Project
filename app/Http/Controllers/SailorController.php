@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class SailorController extends Controller
@@ -58,9 +59,15 @@ class SailorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        if ($id = auth()->user()->id)
+        {
+
+            $sailorinfo = User::find($id);
+            return view("editprofile", ['sailorinfo'=>$sailorinfo]);
+        }
+        
     }
 
     /**
@@ -70,9 +77,50 @@ class SailorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $sailorinfo = User::findOrFail($request->id);
+        $sailorinfo->update([
+            $sailorinfo->name = $request->name,
+            $sailorinfo->name_ar = $request->name_ar,
+            $sailorinfo->nationality = $request->nationality,
+            $sailorinfo->date_of_birth = $request->date_of_birth,
+            $sailorinfo->place_of_birth = $request->place_of_birth,
+            $sailorinfo->passport_number = $request->passport_number,
+            $sailorinfo->passport_number = $request->passport_number,
+            $sailorinfo->date_of_passpot_end = $request->date_of_passpot_end,
+            $sailorinfo->naval_passport_number = $request->naval_passport_number,
+            $sailorinfo->date_of_passport_naval_end = $request->date_of_passport_naval_end,
+            $sailorinfo->nearest_airport = $request->nearest_airport,
+            $sailorinfo->bank_name = $request->bank_name,
+            $sailorinfo->bank_branch = $request->bank_branch,
+            $sailorinfo->bank_address = $request->bank_address,
+            $sailorinfo->account_number = $request->account_number,
+            $sailorinfo->ibn_number = $request->ibn_number,
+            $sailorinfo->swift_code = $request->swift_code,
+            $sailorinfo->phone = $request->phone,
+            $sailorinfo->email = $request->email,
+            $sailorinfo->password = Hash::make($request->password)
+        ]);
+
+        if (request()->hasFile('image')) {
+
+            request()->validate([
+                'image' => 'mimes:jpeg,bmp,png' // Only allow .jpg, .bmp and .png file types.
+            ]);
+
+            // Save the file locally in the storage/public/ folder under a new folder named /image
+            // $request->file->store('image','public');
+            $image = request()->file('image');
+            $file = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+            $image->move($destinationPath,$file);
+            
+            $sailorinfo->update(['image'=>$file]);
+        }
+
+        return redirect()->route('dashboard');
+        
     }
 
     /**

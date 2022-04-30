@@ -29,6 +29,8 @@ Route::group(
   function()
    {
     Route::get('/dashboard', 'SailorController@index')->name('dashboard');
+    Route::get('/editprofile', 'SailorController@edit')->name('editprofile');
+    Route::post('/editprofile', 'SailorController@update')->name('updateprofile');
    });
 
   
