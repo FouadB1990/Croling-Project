@@ -18,7 +18,6 @@ class SailorController extends Controller
     {
         $sailorinfo = User::where('id',Auth::user()->id)->first();
         return view('dashboard',['sailorinfo'=>$sailorinfo]);
-        // return view('dashboard');
     }
 
     /**

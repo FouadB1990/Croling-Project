@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -25,10 +28,31 @@ class AdminController extends Controller
     public function adminIndex()
 
     {
-        // $data = Process::with('user')->latest()->get();
-        // //  dd( $data );
-        // return view('admin',['admindata'=>$data]);
-        return view('admin/dashboard');
+        $userinfo = User::paginate(9); 
+        return view('admin/dashboard',['userinfo'=>$userinfo]);
     }
+
+    public function userInfo($id)
+    {
+        // if ($id = auth()->user()->id)
+        {
+            $sailorinfo = User::find($id);
+            return view("admin/userinfo", ['sailorinfo'=>$sailorinfo]);
+            // return view ("admin/userinfo");
+        }
+        
+    }
+
+    public function deletuser(Request $request)
+    {
+        // if ($id = auth()->user()->id)
+        {
+            $deletuser = User::findOrFail($request->id)->delete();
+            return redirect()->route('admin.index');
+           
+        }
+        
+    }
+
 
 }

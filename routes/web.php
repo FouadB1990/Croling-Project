@@ -37,6 +37,9 @@ Route::group(
 
    
 
-Route::get('admin/index', [AdminController::class,'adminIndex'])->name('admin.index')->middleware('is_admin');
+Route::get('admin', [AdminController::class,'adminIndex'])->name('admin.index')->middleware('is_admin');
+Route::get('admin/user/info/{id}', [AdminController::class,'userInfo'])->name('admin.userInfo')->middleware('is_admin');
+Route::delete('admin/user/delet', [AdminController::class,'deletuser'])->name('admin.deletuser')->middleware('is_admin');
+// Route::get('admin/index', [AdminController::class,'adminIndex'])->name('admin.index')->middleware('is_admin');
 
 
