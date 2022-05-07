@@ -48,6 +48,8 @@ class AdminController extends Controller
         // if ($id = auth()->user()->id)
         {
             $deletuser = User::findOrFail($request->id)->delete();
+            toastr()->success('user has been delete');
+        
             return redirect()->route('admin.index');
            
         }

@@ -31,7 +31,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script> 
 
- 
+@toastr_css
+
 
 </head>
 <body>
@@ -93,6 +94,8 @@
     </div>
 
 
+    @toastr_js
+    @toastr_render
 
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>

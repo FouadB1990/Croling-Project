@@ -31,3 +31,5 @@
 <!-- custom -->
 <script src="{{ URL::asset('assets/js/custom.js') }}"></script>
 
+@toastr_js
+@toastr_render

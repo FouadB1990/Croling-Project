@@ -1,5 +1,7 @@
 
 @extends('layouts.master')
+@toastr_css
+
 @section('content')
 
 
@@ -338,7 +340,8 @@
     });
 </script>
 
-
+@toastr_js
+@toastr_render
 
 @endsection
 

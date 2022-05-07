@@ -118,7 +118,10 @@ class SailorController extends Controller
             $sailorinfo->update(['image'=>$file]);
         }
 
-        return redirect()->route('dashboard');
+        toastr()->success('Information has been Updated');
+        return redirect()->route('dashboard'); 
+        
+
         
     }
 
